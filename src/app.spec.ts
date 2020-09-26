@@ -1,6 +1,6 @@
-const supertest = require("supertest");
-const { expect } = require("chai");
-const app = require("./app.js");
+import supertest from "supertest";
+import { expect } from "chai";
+import { app } from "./app";
 
 const request = supertest(app);
 
