@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "moduleResolution": "node",
-        "target": "ES5",
+        "target": "ESNext",
         "lib": [
             "ESNext"
         ],
