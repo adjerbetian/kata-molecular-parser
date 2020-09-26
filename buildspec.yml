@@ -5,14 +5,12 @@ phases:
     runtime-versions:
       nodejs: 12
     commands:
-      # Install dependencies needed for running tests
-      - npm install
+      - npm ci
 
       # Upgrade AWS CLI to the latest version
       - pip install --upgrade awscli
   pre_build:
     commands:
-      # Discover and run unit tests in the 'tests' directory
       - npm test
   build:
     commands:
