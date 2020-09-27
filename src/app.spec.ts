@@ -10,7 +10,7 @@ describe("app", function () {
     it("should return the composition", async () => {
       const result = await request
         .get("/")
-        .query({ formula: "H20" })
+        .query({ formula: "H2O" })
         .expect(StatusCodes.OK);
 
       expect(result.body).to.deep.equal({ H: 2, O: 1 });
