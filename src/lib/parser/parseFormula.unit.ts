@@ -1,6 +1,7 @@
 import { expect } from "chai";
 import { parseFormula } from "./parseFormula";
 import { Formula } from "../Formula";
+import { FormulaError } from "../../errors";
 
 describe("parseFormula", () => {
   it("should parse elements", () => {
@@ -72,17 +73,15 @@ describe("parseFormula", () => {
     ]);
   });
 
-  describe.skip("error cases", () => {
+  describe("error cases", () => {
     it("should throw on non valid elements", () => {
-      throw "todo";
+      expect(() => parseFormula("h2O")).to.throw(FormulaError);
     });
     it("should throw on non valid multiplier", () => {
-      // example: 2H
-      throw "todo";
+      expect(() => parseFormula("2H")).to.throw(FormulaError);
     });
     it("should throw when brackets are not balanced", () => {
-      // example: Mg(OH]2
-      throw "todo";
+      expect(() => parseFormula("Mg(OH]2")).to.throw(FormulaError);
     });
   });
 });

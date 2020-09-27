@@ -3,13 +3,11 @@ import { Formula } from "../Formula";
 import { visitFormula } from "../Visitor";
 import { Composition } from "./Composition";
 
-export function getComposition(input: string) {
-  if (!input) return {};
-
+export function getComposition(input: string): Composition {
   const formula = parseFormula(input);
   return getFormulaComposition(formula);
 }
-function getFormulaComposition(formula: Formula): Composition {
+function getFormulaComposition(formula: Formula) {
   return visitFormula<Composition>(formula, {
     formula(formula, visit) {
       return formula.reduce((composition, block) => {
