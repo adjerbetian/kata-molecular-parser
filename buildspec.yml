@@ -14,9 +14,10 @@ phases:
       - npm test
   build:
     commands:
+      - cd packages/api
+
       # Fix a bug with timestamps in Babel
       - find node_modules/@babel ! -newermt "1980-01-01" | while read filename; do touch "$filename"; done
-
 
       # Use AWS SAM to package the application using AWS CloudFormation
       - aws cloudformation package --template template.yml --s3-bucket $S3_BUCKET --output-template template-export.yml
@@ -26,5 +27,6 @@ phases:
       - sed -i.bak 's/\$PARTITION\$/'${PARTITION}'/g;s/\$AWS_REGION\$/'${AWS_REGION}'/g;s/\$ACCOUNT_ID\$/'${ACCOUNT_ID}'/g;s/\$PROJECT_ID\$/'${PROJECT_ID}'/g' template-configuration.json
 artifacts:
   files:
-    - template-export.yml
-    - template-configuration.json
+    - packages/api/template-export.yml
+    - packages/api/template-configuration.json
+  discard-paths: yes
