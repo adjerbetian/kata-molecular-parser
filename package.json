@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "scripts": {
         "bootstrap": "(cd packages/api && npm ci) && (cd packages/front && npm ci)",
+        "build": "cd packages/front && npm run build",
         "test": "cd packages/api && npm test",
         "start:api": "cd packages/api && npm start",
         "start:front": "cd packages/front && npm start"
