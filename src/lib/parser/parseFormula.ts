@@ -1,6 +1,6 @@
 import { elements } from "../elements";
 import { FormulaError } from "../../errors";
-import { Formula, FormulaBlock, MultiplicationBlock } from "../Formula";
+import { Formula, Block, MultiplicationBlock } from "../Formula";
 import { brackets } from "./brackets";
 
 export function parseFormula(input: string) {
@@ -37,7 +37,7 @@ function buildElementBlock(element: string) {
 }
 function buildMultiplicationBlock(
   multiplier: number,
-  block: FormulaBlock
+  block: Block
 ): MultiplicationBlock {
   if (Array.isArray(block)) {
     return { multiplier, formula: block };

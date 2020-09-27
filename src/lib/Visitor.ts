@@ -1,11 +1,5 @@
 import { FormulaError } from "../errors";
-import {
-  Block,
-  ElementBlock,
-  Formula,
-  FormulaBlock,
-  MultiplicationBlock,
-} from "./Formula";
+import { Block, ElementBlock, Formula, MultiplicationBlock } from "./Formula";
 
 export function visitFormula<T>(
   formula: Formula,
@@ -13,7 +7,7 @@ export function visitFormula<T>(
 ): T {
   return visit(formula);
 
-  function visit(block: FormulaBlock): T {
+  function visit(block: Block): T {
     if (Block.isFormula(block)) return visitors.formula(block, visit);
     if (Block.isElement(block)) return visitors.element(block, visit);
     if (Block.isMultiplier(block)) return visitors.multiplier(block, visit);
@@ -32,5 +26,5 @@ interface BlockVisitors<Result> {
   element: BlockVisitorFunction<ElementBlock, Result>;
 }
 interface BlockVisitorFunction<BlockType, Result> {
-  (block: BlockType, visit: (block: FormulaBlock) => Result): Result;
+  (block: BlockType, visit: (block: Block) => Result): Result;
 }
