@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "private": true,
     "scripts": {
+        "start": "node src/server.js",
         "test": "mocha"
     },
     "dependencies": {
@@ -23,7 +24,6 @@
         "chai": "^4.2.0",
         "mocha": "^8.1.3",
         "nyc": "^14.1.1",
-        "prettier": "^2.1.2",
         "supertest": "^5.0.0"
     }
 }

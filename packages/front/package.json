@@ -1,0 +1,31 @@
+{
+  "name": "@molecular-parser/front",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "REACT_APP_API_URL=localhost:8080 react-scripts start",
+    "build": "react-scripts build"
+  },
+  "dependencies": {
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "node-sass": "^4.14.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.3",
+    "typescript": "^4.0.3"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
