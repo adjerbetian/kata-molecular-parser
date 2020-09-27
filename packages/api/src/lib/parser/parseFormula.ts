@@ -32,7 +32,7 @@ export function parseFormula(input: string) {
     cursor.moveOf(1);
   }
   function handleMultiplier() {
-    const n = cursor.remainder.match(/^\d+/)![0];
+    const n = parseInt(cursor.match(/^\d+/)![0], 10);
 
     const lastElement = result.pop();
     if (!lastElement)
@@ -40,8 +40,8 @@ export function parseFormula(input: string) {
         `invalid multiplier ${n} at index ${cursor.position}`
       );
 
-    result.push(buildMultiplicationBlock(parseInt(n, 10), lastElement));
-    cursor.moveOf(n.length);
+    result.push(buildMultiplicationBlock(n, lastElement));
+    cursor.moveOf(`${n}`.length);
   }
   function handleSubFormula() {
     const start = cursor.position + 1;
@@ -64,8 +64,8 @@ export function parseFormula(input: string) {
       get char2() {
         return input.substring(i, i + 2);
       },
-      get remainder() {
-        return input.substring(i);
+      match(rgx: RegExp) {
+        return input.substring(i).match(rgx);
       },
       moveOf(increment: number) {
         i += increment;

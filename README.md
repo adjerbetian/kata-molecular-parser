@@ -19,7 +19,7 @@ This monorepo has 2 packages:
 - `packages/api`: the api in NodeJS / Express in
 - `packages/front`: the front end in React
 
-## The original specification
+# The original specification
 
 ### API
 

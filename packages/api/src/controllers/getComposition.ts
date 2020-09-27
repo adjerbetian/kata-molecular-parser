@@ -6,9 +6,8 @@ import { StatusCodes } from "http-status-codes";
 export const getComposition: Controller = (req) => {
   const { formula } = req.query;
 
-  if (!(typeof formula === "string")) {
+  if (!isString(formula))
     throw new HttpError(StatusCodes.BAD_REQUEST, "no formula given");
-  }
 
   try {
     return lib.getComposition(formula);
@@ -19,3 +18,7 @@ export const getComposition: Controller = (req) => {
     throw err;
   }
 };
+
+function isString(element: any): element is string {
+  return typeof element === "string";
+}
