@@ -1,6 +1,6 @@
 export type Formula = FormulaBlock[];
-export type FormulaBlock = string | MultiplicationBlock | Formula;
-
+export type FormulaBlock = ElementBlock | MultiplicationBlock | Formula;
+export type ElementBlock = string;
 export interface MultiplicationBlock {
   multiplier: number;
   formula: Formula;
@@ -12,7 +12,7 @@ export const Block = {
   isMultiplier,
 };
 
-function isElement(block: FormulaBlock): block is string {
+function isElement(block: FormulaBlock): block is ElementBlock {
   return typeof block === "string";
 }
 function isFormula(block: FormulaBlock): block is Formula {

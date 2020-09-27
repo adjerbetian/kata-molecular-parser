@@ -1,6 +1,6 @@
 import { parseFormula } from "./parser";
-import { Block, Formula } from "./Formula";
-import { FormulaError } from "../errors";
+import { Formula } from "./Formula";
+import { visitFormula } from "./Visitor";
 
 export interface Composition extends Record<string, number> {}
 
@@ -11,29 +11,19 @@ export function getComposition(input: string) {
   return getFormulaComposition(formula);
 }
 function getFormulaComposition(formula: Formula): Composition {
-  return formula.reduce((composition, block) => {
-    if (Block.isElement(block)) {
-      composition[block] = (composition[block] || 0) + 1;
-    } else if (Block.isMultiplier(block)) {
-      composition = addCompositions(
-        composition,
-        multiplyComposition(
-          getFormulaComposition(block.formula),
-          block.multiplier
-        )
-      );
-    } else if (Block.isFormula(block)) {
-      composition = addCompositions(composition, getFormulaComposition(block));
-    } else {
-      throwNonRecognizedBlock(block);
-    }
-    return composition;
-  }, {} as Composition);
-}
-function throwNonRecognizedBlock(block: never): never {
-  throw new FormulaError(
-    `The block "${JSON.stringify(block)}" is not recognized`
-  );
+  return visitFormula<Composition>(formula, {
+    formula(formula, visit) {
+      return formula.reduce((composition, block) => {
+        return addCompositions(composition, visit(block));
+      }, {} as Composition);
+    },
+    multiplier(block, visit) {
+      return multiplyComposition(visit(block.formula), block.multiplier);
+    },
+    element(element) {
+      return { [element]: 1 };
+    },
+  });
 }
 
 function addCompositions(c1: Composition, c2: Composition): Composition {
