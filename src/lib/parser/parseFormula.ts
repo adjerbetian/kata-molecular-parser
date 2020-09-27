@@ -1,5 +1,5 @@
 import { elements } from "../elements";
-import { BaseError } from "../../errors";
+import { FormulaError } from "../../errors";
 import { Formula, FormulaBlock, MultiplicationBlock } from "../Formula";
 import { brackets } from "./brackets";
 
@@ -23,7 +23,9 @@ export function parseFormula(input: string) {
       result.push(parseFormula(input.substring(i + 1, end)));
       i = end + 1;
     } else {
-      throw new BaseError(`Unrecognized element at char ${i + 1} in ${input}`);
+      throw new FormulaError(
+        `Unrecognized element at char ${i + 1} in ${input}`
+      );
     }
   }
 

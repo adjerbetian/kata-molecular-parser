@@ -8,28 +8,31 @@ export const brackets = {
   isPair(opening: string, closing: string) {
     return ["()", "[]", "{}"].includes(opening + closing);
   },
-  getClosingIndex(text: string, index: number) {
-    const brackets = [text[index]];
-    index++;
+  getClosingIndex(text: string, openingIndex: number) {
+    const brackets = [text[openingIndex]];
+    let closingIndex = openingIndex + 1;
 
     while (brackets.length > 0) {
-      if (index >= text.length) throwNonBalancedString(text);
+      if (closingIndex >= text.length)
+        throwNonBalancedString(text, openingIndex);
 
-      if (this.isOpening(text[index])) {
-        brackets.push(text[index]);
+      if (this.isOpening(text[closingIndex])) {
+        brackets.push(text[closingIndex]);
       }
-      if (this.isPair(_.last(brackets)!, text[index])) {
+      if (this.isPair(_.last(brackets)!, text[closingIndex])) {
         brackets.pop();
       }
 
-      index++;
+      closingIndex++;
     }
-    return index - 1;
+    return closingIndex - 1;
   },
 };
 
-function throwNonBalancedString(text: string): never {
+function throwNonBalancedString(text: string, index: number): never {
   throw new FormulaError(
-    `no closing bracket found for "${text[0]}" in "${text}"`
+    `no closing bracket found for "${text[index]}" at index ${
+      index + 1
+    } in "${text}"`
   );
 }

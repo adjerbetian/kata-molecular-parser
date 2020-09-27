@@ -7,23 +7,45 @@ const request = supertest(app);
 
 describe("app", function () {
   describe("GET /", () => {
-    it("should return the composition", async () => {
-      const result = await request
-        .get("/")
-        .query({ formula: "H2O" })
-        .expect(StatusCodes.OK);
+    it("should return a status 200", async () => {
+      const result = await getComposition("H2O");
 
-      expect(result.body).to.deep.equal({ H: 2, O: 1 });
+      expect(result.status).to.equal(200);
     });
-    it("should fail when no formula is given", async () => {
-      await request.get("/").expect(StatusCodes.BAD_REQUEST);
+    // prettier-ignore
+    it("should return the composition", async () => {
+      expect((await getComposition("")).body).to.deep.equal({});
+      expect((await getComposition("H2")).body).to.deep.equal({ H: 2 });
+      expect((await getComposition("H2O")).body).to.deep.equal({ H: 2, O: 1 });
+      expect((await getComposition("K4[ON(SO3)2]2")).body).to.deep.equal({ K: 4, O: 14, N: 2, S: 4 });
     });
-    it.skip("should fail on invalid formula", async () => {
-      await request
-        .get("/")
-        .query({ formula: "H[20" })
-        .expect(StatusCodes.BAD_REQUEST);
+
+    describe("bad requests", () => {
+      it("should fail when no formula is given", async () => {
+        const res = await request.get("/");
+
+        expect(res.status).to.equal(StatusCodes.BAD_REQUEST);
+        expect(res.text).to.equal("no formula given");
+      });
+      it("should fail on invalid element name", async () => {
+        const res = await getComposition("h2O");
+
+        expect(res.status).to.equal(StatusCodes.BAD_REQUEST);
+        expect(res.text).to.equal("Unrecognized element at char 1 in h2O");
+      });
+      it("should fail on invalid bracket balance", async () => {
+        const res = await getComposition("H2[0");
+
+        expect(res.status).to.equal(StatusCodes.BAD_REQUEST);
+        expect(res.text).to.equal(
+          `no closing bracket found for "[" at index 3 in "H2[0"`
+        );
+      });
     });
+
+    async function getComposition(formula: string) {
+      return request.get("/").query({ formula });
+    }
   });
   describe("GET /non-existing", () => {
     it("should return a 404 Not Found", async () => {
