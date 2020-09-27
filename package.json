@@ -2,8 +2,10 @@
     "name": "molecular-parser",
     "version": "1.0.0",
     "scripts": {
-        "bootstrap": "cd packages/api && npm ci",
-        "test": "cd packages/api && npm test"
+        "bootstrap": "(cd packages/api && npm ci) && (cd packages/front && npm ci)",
+        "test": "cd packages/api && npm test",
+        "start:api": "cd packages/api && npm start",
+        "start:front": "cd packages/front && npm start"
     },
     "dependencies": {},
     "devDependencies": {

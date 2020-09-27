@@ -1,0 +1,19 @@
+.formula {
+  max-width: 300px;
+  margin: auto;
+
+  h3 {
+    font-size: 30px;
+  }
+
+  .formula-composition {
+    margin: auto;
+    font-size: 20px;
+  }
+  .error {
+    border: 1px solid red;
+    background-color: rgb(255, 230, 230);
+    color: rgb(100, 0, 0);
+    padding: 10px;
+  }
+}

@@ -6,17 +6,20 @@ Example:
 - [`H2O`](https://w0jyxqe4x0.execute-api.us-east-2.amazonaws.com/Prod?formula=H2O)
 - [`K4[ON(SO3)2]2`](https://w0jyxqe4x0.execute-api.us-east-2.amazonaws.com/Prod?formula=K4%5BON(SO3)2%5D2)
 
+## Local development
+
+- installation: `npm run bootstrap` 
+- tests: `npm test` 
+- start api: `npm run start:api` 
+- serve front: `npm run start:front` 
+
 ## Structure
 
-|             path              | description |
-| ----------------------------- | ----------- |
-| `buildspec.yml`               | used by AWS CodeBuild to package your service for deployment to AWS Lambda |
-| `src/`                        | node source code |
-| `index.js`                    | AWS Lambda handler code |
-| `template.yml`                | AWS Serverless Application Model (AWS SAM) used by AWS CloudFormation to deploy your service to AWS Lambda and Amazon API Gateway. |
-| `template-configuration.json` | the project ARN with placeholders used for tagging resources with the project ID |
+This monorepo has 2 packages:
+- `packages/api`: the api in NodeJS / Express in
+- `packages/front`: the front end in React
 
-## Spec
+## The original specification
 
 ### API
 

@@ -3,8 +3,11 @@ import { routes } from "./routes";
 import { Controller } from "./types";
 import { BaseError, HttpError } from "./errors";
 import { StatusCodes } from "http-status-codes";
+import cors from "cors";
 
 export const app = express();
+
+app.use(cors());
 
 routes.forEach((route) => {
   const wrapper = wrapController(route.controller);
