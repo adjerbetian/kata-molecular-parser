@@ -1,1 +1,1 @@
-export * from "./getComposition";
+export { getComposition } from "./composition";

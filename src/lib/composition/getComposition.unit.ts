@@ -1,5 +1,6 @@
 import { expect } from "chai";
-import { Composition, getComposition } from "./getComposition";
+import { getComposition } from "./getComposition";
+import { Composition } from "./Composition";
 
 describe("getComposition", () => {
   it("should return the composition of the molecule", () => {
